@@ -1,0 +1,14 @@
+// src/config/env.js
+
+function getEnvVariable(key, fallback = undefined) {
+  const value = import.meta.env[key];
+  if (value === undefined) {
+    if (fallback !== undefined) return fallback;
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+  return value;
+}
+
+export const ENV = {
+  API_BASE_URL: getEnvVariable('VITE_API_BASE_URL'),
+};
