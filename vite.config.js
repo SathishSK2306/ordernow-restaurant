@@ -1,7 +1,7 @@
 // https://vite.dev/config/
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from 'tailwindcss/vite'
+import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
