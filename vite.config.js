@@ -15,12 +15,14 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@config': path.resolve(__dirname, './src/config'),
       '@features': path.resolve(__dirname, './src/features'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@libs': path.resolve(__dirname, './src/libs'),
       '@services': path.resolve(__dirname, './src/services'),
       '@styles': path.resolve(__dirname, './src/styles'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@assets': path.resolve(__dirname, './src/assets'),
       '@utils': path.resolve(__dirname, './src/utils'),
     },
   },

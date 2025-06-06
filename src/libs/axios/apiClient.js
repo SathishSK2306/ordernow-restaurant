@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ENV } from '@/config/env';
+import { handleAxiosError } from '@/libs/axios/errorHandler';
 
 const apiClient = axios.create({
   baseURL: ENV.API_BASE_URL,
@@ -31,16 +32,7 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     // Handle errors globally
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      console.error('API Error:', error.response.data);
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error('API No Response:', error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error('API Error:', error.message);
-    }
+    handleAxiosError(error);
     return Promise.reject(error);
   }
 );
