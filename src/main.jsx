@@ -1,9 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import AppRouter from './router';
+import { HeaderProvider } from "@/providers/header-context";
+import App from "./App";
+import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AppRouter />
+    <HeaderProvider>
+      <App />
+    </HeaderProvider>
   </StrictMode>
 );

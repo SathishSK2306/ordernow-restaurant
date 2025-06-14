@@ -1,7 +1,7 @@
 // src/libs/http/client.js
 import axios from 'axios';
 import { ENV } from '@/config/env';
-import { handleHttpError } from '@/libs/http/errorHandler';
+import { handleHttpError } from '@/lib/http/errorHandler';
 
 const http = axios.create({
   baseURL: ENV.API_BASE_URL,

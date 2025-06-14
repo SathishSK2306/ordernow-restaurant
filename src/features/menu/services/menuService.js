@@ -1,5 +1,5 @@
 // src/features/menu/services/menuService.js
-import http from '@/libs/http/client';
+import http from '@lib/http/client';
 
 /**
  * Fetches the menu data from the API.

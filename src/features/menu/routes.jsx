@@ -8,4 +8,5 @@ export const menuRoutes = [
     protected: false,
     label: 'Menu'
   }
+  
 ];
