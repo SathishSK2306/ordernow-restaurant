@@ -9,7 +9,7 @@ export function useMenuHeader() {
     setHeader({
       left: {
         icon: "back",
-        title: "My Cart",
+        title: "Browse Menu",
       },
       right: [
         {

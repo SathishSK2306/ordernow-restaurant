@@ -29,7 +29,13 @@ export default defineConfig({
       '@providers': path.resolve(__dirname, './src/providers'),
     },
   },
-  
+  server: {
+    hmr: true,
+    watch: {
+      usePolling: true,
+      },
+  }
+
 })
 // This configuration file sets up a Vite project with React and Tailwind CSS.
 // It imports necessary plugins and exports a configuration object that includes these plugins.
