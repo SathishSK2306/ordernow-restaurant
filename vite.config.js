@@ -30,6 +30,8 @@ export default defineConfig({
     },
   },
   server: {
+    host: true,
+    allowedHosts: ['.ngrok-free.app'],
     hmr: true,
     watch: {
       usePolling: true,
