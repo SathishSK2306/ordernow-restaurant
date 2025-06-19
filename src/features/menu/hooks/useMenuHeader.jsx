@@ -13,12 +13,12 @@ export function useMenuHeader() {
       },
       right: [
         {
-          icon: "search",
-          onClick: () => console.log("Search clicked"),
+          icon: "bell",
+          onClick: () => console.log("Notifications icon clicked"),
         },
         {
-          icon: "options",
-          onClick: () => alert("More options"),
+          icon: "cart",
+          onClick: () => alert("Cart icon clicked"),
         },
       ],
       className: "bg-muted", // optional override

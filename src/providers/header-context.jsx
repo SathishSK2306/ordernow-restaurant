@@ -1,4 +1,4 @@
-    // src/providers/header-context.jsx
+// src/providers/header-context.jsx
 import { createContext, useContext, useState } from "react";
 
 const HeaderContext = createContext();

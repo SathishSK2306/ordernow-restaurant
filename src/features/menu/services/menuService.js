@@ -10,3 +10,4 @@ export async function fetchMenuViewData(restaurantId) {
     console.log('Menu data fetched:', response.data);
     return response.data;
 }
+
