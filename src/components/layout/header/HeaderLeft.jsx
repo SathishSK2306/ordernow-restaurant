@@ -1,9 +1,11 @@
-import { ArrowLeft, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin , X} from "lucide-react";
 import { cn } from "@/lib/utils";
+
 
 const icons = {
   back: ArrowLeft,
   location: MapPin,
+  close: X,
 };
 
 export default function HeaderLeft({ icon, title, subtitle, className }) {

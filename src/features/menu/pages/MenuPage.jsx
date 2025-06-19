@@ -6,7 +6,7 @@ import MenuSection from '../components/MenuSection';
 import MenuItemDetail from '../components/MenuItemDetail';
 
 const MenuPage = () => {
-  const restaurantId = '29d4b71d-f585-4a17-88dc-9e227b56d4f1';
+  const restaurantId = '29d4b71d-f585-4a17-88dc-9e227b56d4f1'; // TODO: Get from route params or context
   const { menuData, loading } = useMenu(restaurantId);
   useMenuHeader();
 
