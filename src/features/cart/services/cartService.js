@@ -6,14 +6,20 @@ export async function getCartViewData(restaurantId) {
     return response.data;
 }
 
-export async function addItemToCart(restaurantId, cartItemData) {
+export async function addItemToCart(restaurantId, menuItem, note) {
+    const cartItemData = {
+        menu_item_id: menuItem.id,
+        quantity: 1, // Default quantity
+        special_instructions: note || '',
+        price_at_added: menuItem.price, 
+    }
     const response = await http.post(`/restaurants/${restaurantId}/cart`, cartItemData);
     console.log('Item added to cart:', response.data);
     return response.data;
 }
 
 export async function updateCartItem(cartItemId, cartItemData) {
-    const response = await http.patch(`/cart/${cartItemId}`, cartItemData);
+    const response = await http.patch(`/cart/item/${cartItemId}`, cartItemData);
     console.log('Cart item updated:', response.data); 
     return response.data;
 }

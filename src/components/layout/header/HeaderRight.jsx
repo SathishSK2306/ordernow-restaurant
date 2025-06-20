@@ -1,4 +1,4 @@
-import { Bell, ShoppingCart, Search, Heart, User, MoreHorizontal } from "lucide-react";
+import { Bell, ShoppingCart, Search, Heart, User, MoreHorizontal , X, ArrowLeft} from "lucide-react";
 import HeaderIconButton from "./HeaderIconButton";
 
 const iconMap = {
@@ -8,6 +8,8 @@ const iconMap = {
   heart: Heart,
   account: User,
   options: MoreHorizontal,
+  close: X,
+  back: ArrowLeft,
 };
 
 export default function HeaderRight({ icons = [] }) {

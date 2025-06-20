@@ -1,12 +1,22 @@
+// src/features/menu/components/MenuItemDetail.jsx
 import { Drawer, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription } from "@/components/ui/drawer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Heart, Share } from "lucide-react";
 import { useState } from "react";
+import { useCartMutations } from "@/features/cart/hooks/useCartMutations";
 
-export default function MenuItemDetail({ item, onClose }) {
+// This is a drawer component that displays detailed information about a menu item.
+export default function MenuItemDetail({ item, onClose, restaurantId }) {
   const [note, setNote] = useState("");
+  const { add } = useCartMutations(restaurantId, { syncItems: true });
+
+  const handleAddToCart = () =>{
+    add(item, note);
+    setNote(""); // Clear the note after adding to cart
+    onClose(); // Close the drawer after adding to cart
+  }
 
   if (!item) return null;
 
@@ -52,7 +62,7 @@ export default function MenuItemDetail({ item, onClose }) {
 
         {/* Fixed Add to Cart Button */}
         <DrawerFooter className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4">
-          <Button className="w-full flex justify-between text-base font-medium">
+          <Button className="w-full flex justify-between text-base font-medium" onClick={handleAddToCart}>
             <span>Add to cart</span>
             <span>₹{item.price}</span>
           </Button>

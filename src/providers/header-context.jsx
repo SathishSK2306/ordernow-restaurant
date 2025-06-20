@@ -5,9 +5,9 @@ const HeaderContext = createContext();
 
 export function HeaderProvider({ children }) {
   const [header, setHeader] = useState({
-    left: null,         // { icon, title, subtitle }
-    right: [],          // [{ icon, count, onClick }]
-    className: "",      // Extra styling support
+    left: null,
+    right: [],
+    className: "",
   });
 
   return (

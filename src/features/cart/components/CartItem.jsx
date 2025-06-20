@@ -1,8 +1,18 @@
 // src/features/cart/components/CartItemCard.jsx
 import { Button } from "@/components/ui/button";
+import { useCartMutations } from "../hooks/useCartMutations";
 
 const CartItem= ({ item }) => {
   const { menu_item: menuItem, quantity, price_at_added } = item;
+  const { increment, decrement } = useCartMutations(menuItem.restaurant_id, { syncItems: true });
+
+  const handleIncrement = () => {
+    increment(item);
+  }
+  const handleDecrement = () => {
+    decrement(item);
+  }
+  
   return (
     <div className="flex border rounded-xl overflow-hidden">
       <img
@@ -15,9 +25,9 @@ const CartItem= ({ item }) => {
         <p className="text-sm text-muted-foreground">₹{price_at_added.toFixed(2)}</p>
       </div>
       <div className="flex items-center px-4 space-x-2">
-        <Button size="sm" variant="outline">-</Button>
+        <Button size="sm" variant="outline" onClick={handleDecrement}>-</Button>
         <span>{quantity}</span>
-        <Button size="sm" variant="outline">+</Button>
+        <Button size="sm" variant="outline" onClick={handleIncrement}>+</Button>
       </div>
     </div>
   );

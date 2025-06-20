@@ -1,4 +1,5 @@
 // src/features/cart/pages/CartPage.jsx
+import { useNavigate, useParams } from "react-router-dom";
 import { useCartItems } from "@/features/cart/hooks/useCartItems";
 import { useCartHeader } from "@/features/cart/hooks/useCartHeader";
 import CartItem from "../components/CartItem";
@@ -9,6 +10,12 @@ import { Button } from "@/components/ui/button";
 const CartPage = () => {
   const { cartItems, loading, error } = useCartItems();
   useCartHeader();
+  const navigate = useNavigate();
+  const {restaurantId } = useParams();
+
+  const handleMoreItems = () => {
+    navigate(`/restaurant/${restaurantId}/menu`);
+  };
 
   if (loading) return <div className="text-center p-6">Loading cart...</div>;
   if (error) return <div className="text-center p-6 text-red-600">Failed to load cart</div>;
@@ -21,7 +28,7 @@ const CartPage = () => {
         ))}
 
         <div className="flex justify-end">
-          <Button variant="outline">+ Add Items</Button>
+          <Button variant="outline" onClick={handleMoreItems}>+ Add more items</Button>
         </div>
       </div>
 
