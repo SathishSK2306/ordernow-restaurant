@@ -1,19 +1,22 @@
 // src/features/cart/components/CartItemCard.jsx
+import React, { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { useCartMutations } from "../hooks/useCartMutations";
 
-const CartItem= ({ item }) => {
+const CartItem = memo(({ item , setCartItems}) => {
   const { menu_item: menuItem, quantity, price_at_added } = item;
-  const { increment, decrement } = useCartMutations(menuItem.restaurant_id, { syncItems: true });
+  const { increment, decrement } = useCartMutations(item.cart_id, {
+    setCartItems, // pass this from CartPage if using
+  });
 
-  const handleIncrement = () => {
+const handleIncrement = () => {
     increment(item);
   }
-  const handleDecrement = () => {
+const handleDecrement = () => {
     decrement(item);
   }
-  
-  return (
+
+return (
     <div className="flex border rounded-xl overflow-hidden">
       <img
         src={menuItem.image_url}
@@ -31,6 +34,6 @@ const CartItem= ({ item }) => {
       </div>
     </div>
   );
-};
-
+});
 export default CartItem;
+

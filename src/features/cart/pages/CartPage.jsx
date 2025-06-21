@@ -1,21 +1,25 @@
 // src/features/cart/pages/CartPage.jsx
-import { useNavigate, useParams } from "react-router-dom";
-import { useCartItems } from "@/features/cart/hooks/useCartItems";
-import { useCartHeader } from "@/features/cart/hooks/useCartHeader";
-import CartItem from "../components/CartItem";
-import CartSummary from "../components/CartSummary";
-import CartActionButton from "../components/CartActionButton";
-import { Button } from "@/components/ui/button";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useCartHeader } from '@/features/cart/hooks/useCartHeader';
+import CartItem from '../components/CartItem';
+import CartSummary from '../components/CartSummary';
+import CartActionButton from '../components/CartActionButton';
+import { Button } from '@/components/ui/button';
+import { useCartItemsFetch } from '@/features/cart/hooks/useCartItemsFetch';
 
 const CartPage = () => {
-  const { cartItems, loading, error } = useCartItems();
-  useCartHeader();
+  const { restaurantId } = useParams();
   const navigate = useNavigate();
-  const {restaurantId } = useParams();
+  useCartHeader();
 
-  const handleMoreItems = () => {
-    navigate(`/restaurant/${restaurantId}/menu`);
-  };
+  const {
+    cartItems,
+    loading,
+    error,
+    setCartItems,
+  } = useCartItemsFetch(restaurantId);
+
+  const handleMoreItems = () => navigate(`/restaurant/${restaurantId}/menu`);
 
   if (loading) return <div className="text-center p-6">Loading cart...</div>;
   if (error) return <div className="text-center p-6 text-red-600">Failed to load cart</div>;
@@ -24,16 +28,20 @@ const CartPage = () => {
     <div className="p-4 max-w-3xl mx-auto space-y-6">
       <div className="space-y-4">
         {cartItems.map((item) => (
-          <CartItem key={item.id} item={item} />
+          <CartItem
+            key={item.id}
+            item={item}
+            setCartItems={setCartItems}
+            cartItems={cartItems} // optional, if needed in the component
+          />
         ))}
-
         <div className="flex justify-end">
-          <Button variant="outline" onClick={handleMoreItems}>+ Add more items</Button>
+          <Button variant="outline" onClick={handleMoreItems}>
+            + Add more items
+          </Button>
         </div>
       </div>
-
       <CartSummary />
-
       <CartActionButton />
     </div>
   );

@@ -5,8 +5,7 @@ import { useMenuHeader } from '../hooks/useMenuHeader';
 import MenuSection from '../components/MenuSection';
 import MenuItemDetail from '../components/MenuItemDetail';
 import { useParams } from 'react-router-dom';
-import { CartTotalsProvider } from '@/features/cart/context/cartTotals-context';
-import { CartItemsProvider } from '@/features/cart/context/cartItems-context';
+import { CartTotalsProvider } from '@/features/cart/context/cartTotalsContext';
 
 const MenuPage = () => {
   const { restaurantId } = useParams();
@@ -28,11 +27,9 @@ const MenuPage = () => {
           <MenuSection key={menu.id} menu={menu} onItemClick={onItemClick} />
         ))}
       </div>
-      <CartItemsProvider restaurantId={restaurantId}>        
         <CartTotalsProvider restaurantId={restaurantId}>
           <MenuItemDetail item={selectedItem} onClose={onItemClose} restaurantId={restaurantId} />
         </CartTotalsProvider>
-      </CartItemsProvider>
     </>
   );
 };
