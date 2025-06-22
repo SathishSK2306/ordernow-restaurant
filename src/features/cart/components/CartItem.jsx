@@ -1,22 +1,21 @@
-// src/features/cart/components/CartItemCard.jsx
-import React, { memo } from "react";
-import { Button } from "@/components/ui/button";
-import { useCartMutations } from "../hooks/useCartMutations";
+// src/features/cart/components/CartItem.jsx
+import React, { memo } from 'react';
+import { Button } from '@/components/ui/button';
+import { useCartMutations } from '../hooks/useCartMutations';
 
-const CartItem = memo(({ item , setCartItems}) => {
+const CartItem = memo(({ item, restaurantId, sessionId }) => {
   const { menu_item: menuItem, quantity, price_at_added } = item;
-  const { increment, decrement } = useCartMutations(item.cart_id, {
-    setCartItems, // pass this from CartPage if using
-  });
+  const { increment, decrement} = useCartMutations(restaurantId, sessionId);
 
-const handleIncrement = () => {
-    increment(item);
-  }
-const handleDecrement = () => {
+  const handleIncrement = () => {
+    increment(item);    
+  };
+
+  const handleDecrement = () => {
     decrement(item);
-  }
+  };
 
-return (
+  return (
     <div className="flex border rounded-xl overflow-hidden">
       <img
         src={menuItem.image_url}
@@ -35,5 +34,5 @@ return (
     </div>
   );
 });
-export default CartItem;
 
+export default CartItem;

@@ -5,23 +5,20 @@ import CartItem from '../components/CartItem';
 import CartSummary from '../components/CartSummary';
 import CartActionButton from '../components/CartActionButton';
 import { Button } from '@/components/ui/button';
-import { useCartItemsFetch } from '@/features/cart/hooks/useCartItemsFetch';
+import { useCart } from '@/features/cart/hooks/useCart';
 
 const CartPage = () => {
   const { restaurantId } = useParams();
   const navigate = useNavigate();
   useCartHeader();
 
-  const {
-    cartItems,
-    loading,
-    error,
-    setCartItems,
-  } = useCartItemsFetch(restaurantId);
+  
+  const { data, isLoading, error } = useCart(restaurantId);
+  const cartItems = data?.cart_items || [];
 
   const handleMoreItems = () => navigate(`/restaurant/${restaurantId}/menu`);
 
-  if (loading) return <div className="text-center p-6">Loading cart...</div>;
+  if (isLoading) return <div className="text-center p-6">Loading cart...</div>;
   if (error) return <div className="text-center p-6 text-red-600">Failed to load cart</div>;
 
   return (
@@ -31,8 +28,7 @@ const CartPage = () => {
           <CartItem
             key={item.id}
             item={item}
-            setCartItems={setCartItems}
-            cartItems={cartItems} // optional, if needed in the component
+            restaurantId={restaurantId}
           />
         ))}
         <div className="flex justify-end">
@@ -41,7 +37,7 @@ const CartPage = () => {
           </Button>
         </div>
       </div>
-      <CartSummary />
+      <CartSummary subtotal={data.totals.subtotal} />
       <CartActionButton />
     </div>
   );

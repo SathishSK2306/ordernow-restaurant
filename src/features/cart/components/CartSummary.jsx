@@ -1,8 +1,5 @@
-// src/features/cart/components/CartSummary.jsx
-import { useCartTotals } from "@/features/cart/hooks/useCartTotals";
-
-const CartSummary = () => {
-  const { subtotal } = useCartTotals();
+//src/features/cart/components/CartSummary.jsx
+const CartSummary = ({subtotal=0}) => {
   const sgst = subtotal * 0.025;
   const cgst = subtotal * 0.025;
   const total = subtotal + sgst + cgst;

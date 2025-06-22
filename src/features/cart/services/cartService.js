@@ -25,7 +25,7 @@ export async function updateCartItem(cartItemId, cartItemData) {
 }
 
 export async function removeCartItem(cartItemId) {
-    const response = await http.delete(`/cart/${cartItemId}`);
+    const response = await http.delete(`/cart/item/${cartItemId}`);
     console.log('Cart item removed:', response.data);
     return response.data;
 }
@@ -33,11 +33,5 @@ export async function removeCartItem(cartItemId) {
 export async function clearCart(restaurantId) {
     const response = await http.delete(`/restaurants/${restaurantId}/cart`);
     console.log('Cart cleared:', response.data);
-    return response.data;
-}
-
-export async function getCartTotals(restaurantId) {
-    const response = await http.get(`/restaurants/${restaurantId}/cart/totals`);
-    console.log('Cart totals fetched:', response.data);
     return response.data;
 }
