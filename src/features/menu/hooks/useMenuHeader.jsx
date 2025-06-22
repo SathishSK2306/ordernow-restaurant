@@ -10,6 +10,8 @@ export function useMenuHeader() {
   const {restaurantId} = useParams();
   const { data: cartData } = useCart(restaurantId);
 
+  const totalItems = cartData?.totals?.total_items || 0;
+
   useEffect(() => {
     setHeader({
       left: {
@@ -26,7 +28,7 @@ export function useMenuHeader() {
         },
         {
           icon: "cart",
-          count: cartData?.totals.total_items || 0, // Show cart item count
+          count: totalItems, // Show cart item count
           onClick: () => navigate(`/restaurant/${restaurantId}/cart`)
         }
       ],
@@ -34,5 +36,5 @@ export function useMenuHeader() {
   });
 
     return () => setHeader(null); // Clean up on unmount
-  }, [setHeader, navigate, restaurantId]);
+  }, [setHeader, navigate, restaurantId, totalItems]);
 }
