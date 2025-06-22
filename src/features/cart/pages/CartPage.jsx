@@ -11,7 +11,6 @@ const CartPage = () => {
   const { restaurantId } = useParams();
   const navigate = useNavigate();
   useCartHeader();
-
   
   const { data, isLoading, error } = useCart(restaurantId);
   const cartItems = data?.cart_items || [];

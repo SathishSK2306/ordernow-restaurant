@@ -3,9 +3,9 @@ import React, { memo } from 'react';
 import { Button } from '@/components/ui/button';
 import { useCartMutations } from '../hooks/useCartMutations';
 
-const CartItem = memo(({ item, restaurantId, sessionId }) => {
+const CartItem = memo(({ item, restaurantId }) => {
   const { menu_item: menuItem, quantity, price_at_added } = item;
-  const { increment, decrement} = useCartMutations(restaurantId, sessionId);
+  const { increment, decrement} = useCartMutations(restaurantId);
 
   const handleIncrement = () => {
     increment(item);    
