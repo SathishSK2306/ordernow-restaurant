@@ -6,10 +6,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Heart, Share } from "lucide-react";
 import { useState } from "react";
 import { useCartMutations } from "@/features/cart/hooks/useCartMutations";
+import { QuantityCounter } from "@/features/cart/components/QuantityCounter";
+import { useMenuItemQtyInCart } from "../hooks/useMenuItemQtyInCart";
 
 // This is a drawer component that displays detailed information about a menu item.
 export default function MenuItemDetail({ item, onClose, restaurantId }) {
   const [note, setNote] = useState("");
+  const quantityInCart = useMenuItemQtyInCart(restaurantId, item?.id);
   const { add } = useCartMutations(restaurantId, { syncItems: true });
 
   const handleAddToCart = () =>{
@@ -58,6 +61,15 @@ export default function MenuItemDetail({ item, onClose, restaurantId }) {
               <div className="text-sm text-right text-muted-foreground mt-1">{note.length}/100</div>
             </CardContent>
           </Card>
+          
+          {/* Item quanity counter */}
+          <div className="flex justify-center p-4">
+            <QuantityCounter
+            item={item}
+            restaurantId={restaurantId}
+            quantity={quantityInCart || 1} // Assuming a default quantity of 1 for simplicity 
+          />
+          </div>
         </div>
 
         {/* Fixed Add to Cart Button */}

@@ -1,23 +1,33 @@
 import { Button } from '@/components/ui/button';
 import { Plus, Minus } from 'lucide-react';
+import { useCartMutations } from '../hooks/useCartMutations';
 
-export function QuantityCounter({ quantity, onIncrement, onDecrement }) {
+
+export function QuantityCounter({ item , restaurantId, quantity}) {
+  const { increment, decrement} = useCartMutations(restaurantId);
+
   return (
-    <div className="flex items-center px-4 space-x-2">
-      <Button size="sm" variant="outline" onClick={onDecrement}>-</Button>
-      <span>{quantity}</span>
-      <Button size="sm" variant="outline" onClick={onIncrement}>+</Button>
+    <div className="flex items-center px-4 space-x-6">
+      <Button size="icon" variant="ghost" className="rounded-full bg-gray-100 p-5" onClick={()=>decrement(item)}>
+        <Minus/>
+      </Button>
+      <span className="text-lg font-semibold">{quantity}</span>
+      <Button size="icon" variant="ghost" className="rounded-full bg-gray-100 p-5" onClick={()=>increment(item)}>
+        <Plus/>
+      </Button>
     </div>
   );
 }
 
-export function QuantityCounterPill({ quantity, onIncrement, onDecrement }) {
+export function QuantityCounterPill({ item, restaurantId, quantity }) {
+  const { increment, decrement } = useCartMutations(restaurantId);
+
   return (
     <div className="flex items-center space-x-3 bg-muted px-2 py-1 rounded-full mr-4">
       <Button
         variant="ghost"
         size="icon"
-        onClick={onDecrement}
+        onClick={()=>decrement(item)}
         className="h-6 w-5 p-0 text-base"
       >
         −
@@ -26,7 +36,7 @@ export function QuantityCounterPill({ quantity, onIncrement, onDecrement }) {
       <Button
         variant="ghost"
         size="icon"
-        onClick={onIncrement}
+        onClick={()=>increment(item)}
         className="h-6 w-5 p-0 text-base"
       >
         +
