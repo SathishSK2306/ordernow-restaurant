@@ -12,8 +12,8 @@ const CartPage = () => {
   const navigate = useNavigate();
   useCartHeader();
   
-  const { data, isLoading, error } = useCart(restaurantId);
-  const cartItems = data?.cart_items || [];
+  const { data: cartViewData, isLoading, error } = useCart(restaurantId);
+  const cartItems = cartViewData?.cart_items || [];
 
   const handleMoreItems = () => navigate(`/restaurant/${restaurantId}/menu`);
 
@@ -36,7 +36,7 @@ const CartPage = () => {
           </Button>
         </div>
       </div>
-      <CartSummary subtotal={data.totals.subtotal} />
+      <CartSummary subtotal={cartViewData.totals.subtotal} />
       <CartActionButton />
     </div>
   );

@@ -1,7 +1,10 @@
 // src/features/menu/components/MenuItemCard.jsx
-import { Button } from "@/components/ui/button";
+import QuickAddButton from "./QuickAddButton";
+import {useParams} from "react-router-dom";
 
 const MenuItemCard = ({ item, onItemClick }) => {
+  const { restaurantId } = useParams();
+
   return (
     <div className="flex border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-35" 
          onClick={() => onItemClick(item)}
@@ -23,13 +26,7 @@ const MenuItemCard = ({ item, onItemClick }) => {
             alt={item.name}
             className="w-full h-full object-cover"
           />
-          <Button
-            size="icon"
-            className="absolute bottom-2 right-2 rounded-full bg-white text-black shadow-md hover:bg-gray-100"
-            variant="ghost"
-          >
-            +
-          </Button>
+          <QuickAddButton item ={item} restaurantId={restaurantId} />
         </div>
       )}
     </div>

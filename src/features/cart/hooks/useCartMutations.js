@@ -123,7 +123,7 @@ export function useCartMutations(restaurantId) {
     },
   });
 
-  const add = (item, note) => addItemMutation.mutate({ item, note });
+  const add = (item, note="") => addItemMutation.mutate({ item, note });
   const remove = (item) => removeItemMutation.mutate(item.id);
   const clear = () => clearCartMutation.mutate();
 
