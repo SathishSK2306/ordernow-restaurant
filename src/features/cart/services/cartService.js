@@ -6,10 +6,10 @@ export async function getCartViewData(restaurantId) {
     return response.data;
 }
 
-export async function addItemToCart(restaurantId, menuItem, note) {
+export async function addItemToCart(restaurantId, menuItem, note, quantity = 1) {
     const cartItemData = {
         menu_item_id: menuItem.id,
-        quantity: 1, // Default quantity
+        quantity: quantity, // Default quantity
         special_instructions: note || '',
         price_at_added: menuItem.price, 
     }

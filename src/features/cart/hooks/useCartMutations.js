@@ -73,22 +73,22 @@ export function useCartMutations(restaurantId) {
   });
 
   const addItemMutation = useMutation({
-    mutationFn: ({ item, note }) => addItemToCart(restaurantId, item, note),
+    mutationFn: ({ item, note, quantity }) => addItemToCart(restaurantId, item, note, quantity),
 
-    onMutate: async ({ item }) => {
+    onMutate: async ({ item, quantity=1 }) => {
       await queryClient.cancelQueries({ queryKey: ['cart', restaurantId] });
       const previousCart = optimisticUpdateCart((old) => {
         const existing = old.cart_items.find((i) => i.menu_item.id === item.id);
         let updatedItems;
         if (existing) {
           updatedItems = old.cart_items.map((i) =>
-            i.menu_item.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+            i.menu_item.id === item.id ? { ...i, quantity: i.quantity + quantity } : i
           );
         } else {
           const newItem = {
             id: `temp-${Date.now()}`,
             cart_id: old.id,
-            quantity: 1,
+            quantity: quantity,
             price_at_added: item.price,
             special_instructions: null,
             menu_item: item,
@@ -123,7 +123,7 @@ export function useCartMutations(restaurantId) {
     },
   });
 
-  const add = (item, note="") => addItemMutation.mutate({ item, note });
+  const add = (item, note="", quantity=1) => addItemMutation.mutate({ item, note, quantity });
   const remove = (item) => removeItemMutation.mutate(item.id);
   const clear = () => clearCartMutation.mutate();
 

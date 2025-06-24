@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+//import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { HeaderProvider } from "@/providers/header-context";
 import App from "./App";
 import "./index.css";
@@ -26,7 +26,7 @@ createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <HeaderProvider>
       <App />
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </HeaderProvider>
   </QueryClientProvider>
   </StrictMode>

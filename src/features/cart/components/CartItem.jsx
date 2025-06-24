@@ -1,10 +1,11 @@
 // src/features/cart/components/CartItem.jsx
 import React, { memo } from 'react';
 import { QuantityCounterPill } from './QuantityCounter'
+import { useCartMutations } from '../hooks/useCartMutations';
 
 const CartItem = memo(({ item, restaurantId }) => {
-  const { menu_item: menuItem, price_at_added } = item;
-
+  const { menu_item: menuItem, quantity, price_at_added } = item;
+  const { increment, decrement} = useCartMutations(restaurantId);
 
   return (
     <div className="flex border rounded-xl overflow-hidden items-center">
@@ -17,7 +18,11 @@ const CartItem = memo(({ item, restaurantId }) => {
         <h4 className="font-medium text-gray-800">{menuItem.name}</h4>
         <p className="text-sm text-muted-foreground">₹{price_at_added.toFixed(2)}</p>
       </div>
-      <QuantityCounterPill quantity={item.quantity} item={item} restaurantId={restaurantId} />
+      <QuantityCounterPill 
+        quantity={quantity} 
+        onIncrement={() => increment(item)}
+        onDecrement={() => decrement(item)}
+      />
     </div>
   );
 });

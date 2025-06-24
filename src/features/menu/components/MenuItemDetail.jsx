@@ -3,8 +3,8 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerD
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Heart, Share } from "lucide-react";
-import { useState } from "react";
+import { Heart, Share, ShoppingCart } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useCartMutations } from "@/features/cart/hooks/useCartMutations";
 import { QuantityCounter } from "@/features/cart/components/QuantityCounter";
 import { useMenuItemQtyInCart } from "../hooks/useMenuItemQtyInCart";
@@ -12,13 +12,19 @@ import { useMenuItemQtyInCart } from "../hooks/useMenuItemQtyInCart";
 // This is a drawer component that displays detailed information about a menu item.
 export default function MenuItemDetail({ item, onClose, restaurantId }) {
   const [note, setNote] = useState("");
+  const [quantity, setQuantity] = useState(1); // Local state for quantity
   const quantityInCart = useMenuItemQtyInCart(restaurantId, item?.id);
   const { add } = useCartMutations(restaurantId, { syncItems: true });
 
+  useEffect(()=>{
+    // Reset note and quantity when drawer is closed or item changes
+    setNote("");
+    setQuantity(1);    
+  },[item]);
+
   const handleAddToCart = () =>{
-    add(item, note);
-    setNote(""); // Clear the note after adding to cart
-    onClose(); // Close the drawer after adding to cart
+    add(item, note, quantity);    
+    onClose(); // Close the drawer after adding to cart   
   }
 
   if (!item) return null;
@@ -44,7 +50,14 @@ export default function MenuItemDetail({ item, onClose, restaurantId }) {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
-              </div>
+                {quantityInCart>0 && 
+                <div className="flex items-center justify-between mt-4">
+                  <div className="flex items-center space-x-2">
+                    <ShoppingCart className="h-5 w-5" />
+                    <span >{quantityInCart}x in cart</span>
+                  </div>
+                </div>}
+            </div>
             </CardContent>
           </Card>
 
@@ -65,9 +78,9 @@ export default function MenuItemDetail({ item, onClose, restaurantId }) {
           {/* Item quanity counter */}
           <div className="flex justify-center p-4">
             <QuantityCounter
-            item={item}
-            restaurantId={restaurantId}
-            quantity={quantityInCart || 1} // Assuming a default quantity of 1 for simplicity 
+              quantity={quantity}
+              onIncrement={() => {setQuantity(prev => prev + 1)}}
+              onDecrement={() => {setQuantity(prev => Math.max(1, prev - 1))}}
           />
           </div>
         </div>
@@ -76,7 +89,7 @@ export default function MenuItemDetail({ item, onClose, restaurantId }) {
         <DrawerFooter className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4">
           <Button className="w-full flex justify-between text-base font-medium" onClick={handleAddToCart}>
             <span>Add to cart</span>
-            <span>₹{item.price}</span>
+            <span>₹{item.price*quantity}</span>
           </Button>
         </DrawerFooter>
       </DrawerContent>
