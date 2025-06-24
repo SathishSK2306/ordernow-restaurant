@@ -1,9 +1,12 @@
 // src/features/menu/components/MenuItemCard.jsx
 import QuickAddButton from "./QuickAddButton";
 import {useParams} from "react-router-dom";
+import {Badge} from "@components/ui/badge";
+import { useMenuItemQtyInCart } from "../hooks/useMenuItemQtyInCart";
 
 const MenuItemCard = ({ item, onItemClick }) => {
   const { restaurantId } = useParams();
+  const quantityInCart = useMenuItemQtyInCart(restaurantId, item.id);
 
   return (
     <div className="flex border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden h-35" 
@@ -26,6 +29,12 @@ const MenuItemCard = ({ item, onItemClick }) => {
             alt={item.name}
             className="w-full h-full object-cover"
           />
+          {/* Badge for Qty in Cart */}
+          {quantityInCart>0 && 
+            <Badge className="absolute top-2 left-2 h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-black">
+              {quantityInCart} in cart
+            </Badge>
+          }
           <QuickAddButton item ={item} restaurantId={restaurantId} />
         </div>
       )}
