@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { useCartMutations } from "@/features/cart/hooks/useCartMutations";
 import { QuantityCounter } from "@/features/cart/components/QuantityCounter";
 import { useMenuItemQtyInCart } from "../hooks/useMenuItemQtyInCart";
+import { ENV } from '@/config/env';
+const imageBaseUrl = ENV.IMAGE_BASE_URL;
 
 // This is a drawer component that displays detailed information about a menu item.
 export default function MenuItemDetail({ item, onClose, restaurantId }) {
@@ -40,7 +42,7 @@ export default function MenuItemDetail({ item, onClose, restaurantId }) {
           {/* Card 1: Image, Name, Buttons, Description */}
           <Card className="p-2">
             <CardContent className="p-0">
-              <img src={item.image_url} alt={item.name} className="w-full h-48 object-cover rounded-t-md" />
+              <img src={`${imageBaseUrl}/${item.image_url}`} alt={item.name} className="w-full h-48 object-cover rounded-t-md" />
               <div className="p-4 space-y-2">
                 <div className="flex justify-between items-center">
                   <h2 className="text-xl font-semibold">{item.name}</h2>

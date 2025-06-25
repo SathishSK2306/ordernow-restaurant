@@ -11,4 +11,5 @@ function getEnvVariable(key, fallback = undefined) {
 
 export const ENV = {
   API_BASE_URL: getEnvVariable('VITE_API_BASE_URL'),
+  IMAGE_BASE_URL: getEnvVariable('VITE_IMAGE_BASE_URL', 'https://images.example.com'),
 };

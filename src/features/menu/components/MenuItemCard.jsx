@@ -3,6 +3,8 @@ import QuickAddButton from "./QuickAddButton";
 import {useParams} from "react-router-dom";
 import {Badge} from "@components/ui/badge";
 import { useMenuItemQtyInCart } from "../hooks/useMenuItemQtyInCart";
+import { ENV } from '@/config/env';
+const imageBaseUrl = ENV.IMAGE_BASE_URL;
 
 const MenuItemCard = ({ item, onItemClick }) => {
   const { restaurantId } = useParams();
@@ -25,16 +27,17 @@ const MenuItemCard = ({ item, onItemClick }) => {
       {item.image_url && (
         <div className="relative w-32 h-full shrink-0">
           <img
-            src={item.image_url}
+            src={`${imageBaseUrl}/${item.image_url}`}
             alt={item.name}
             className="w-full h-full object-cover"
-          />
+          />  
           {/* Badge for Qty in Cart */}
           {quantityInCart>0 && 
             <Badge className="absolute top-2 left-2 h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-black">
               {quantityInCart} in cart
             </Badge>
           }
+          {/* Quick Add Button over image*/}
           <QuickAddButton item ={item} restaurantId={restaurantId} />
         </div>
       )}

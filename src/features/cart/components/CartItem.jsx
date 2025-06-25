@@ -2,6 +2,8 @@
 import React, { memo } from 'react';
 import { QuantityCounterPill } from './QuantityCounter'
 import { useCartMutations } from '../hooks/useCartMutations';
+import { ENV } from '@/config/env';
+const imageBaseUrl = ENV.IMAGE_BASE_URL;
 
 const CartItem = memo(({ item, restaurantId }) => {
   const { menu_item: menuItem, quantity, price_at_added } = item;
@@ -10,7 +12,7 @@ const CartItem = memo(({ item, restaurantId }) => {
   return (
     <div className="flex border rounded-xl overflow-hidden items-center">
       <img
-        src={menuItem.image_url}
+        src={`${imageBaseUrl}/${menuItem.image_url}`}
         alt={menuItem.name}
         className="w-24 h-24 object-cover"
       />
