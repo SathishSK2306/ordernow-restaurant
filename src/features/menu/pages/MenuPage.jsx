@@ -19,6 +19,7 @@ const MenuPage = () => {
 
   
   const allCategories = menuData?.flatMap(menu => menu.categories);
+  console.log('All Categories:', allCategories);
 
   if (isLoading) return <div className="text-center py-6 text-gray-600">Loading menu...</div>;
   if (isError || !menuData) return <div className="text-center py-6 text-red-600">Failed to load menu.</div>;

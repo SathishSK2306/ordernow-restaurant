@@ -1,11 +1,13 @@
 // src/features/menu/components/MenuCategoryNavBar.jsx
 import { useEffect, useRef, useState } from 'react';
 import { Menu } from 'lucide-react';
+import MenuOverviewDrawer from './MenuOverviewDrawer';
 
 const MenuCategoryNavBar = ({ categories, onSelect }) => {
   const [activeCategoryId, setActiveCategoryId] = useState(null);
   const containerRef = useRef(null);
   const buttonRefs = useRef({});
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleCategoryClick = (id) => {
     const el = document.getElementById(`category-${id}`);
@@ -13,6 +15,11 @@ const MenuCategoryNavBar = ({ categories, onSelect }) => {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
+  const handleCategoryMenuClick = () => {
+    setIsDrawerOpen((prev) => !prev);
+  };
+  
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,12 +58,13 @@ const MenuCategoryNavBar = ({ categories, onSelect }) => {
   }, [onSelect]);
 
   return (
+    <>
     <div className="sticky top-[62px] z-30 bg-white border-b py-3">
       <div
         className="flex items-center gap-2 overflow-x-auto scrollbar-hide"
         ref={containerRef}
       >
-        <button className="shrink-0 p-2 text-gray-500">
+        <button className="shrink-0 p-2 text-gray-500" onClick={()=> handleCategoryMenuClick()}>
           <Menu className="w-5 h-5" />
         </button>
         {categories.map((cat) => (
@@ -75,6 +83,17 @@ const MenuCategoryNavBar = ({ categories, onSelect }) => {
         ))}
       </div>
     </div>
+     {/* Drawer Component */}
+      <MenuOverviewDrawer
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        categories={categories}
+        onSelect={(id) => {
+          handleCategoryClick(id);
+          setIsDrawerOpen(false);
+        }}
+      />
+    </>
   );
 };
 
