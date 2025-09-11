@@ -1,7 +1,15 @@
-// src/libs/http/client.js
+// src/lib/http/client.js
 import axios from 'axios';
 import { ENV } from '@/config/env';
 import { handleHttpError } from '@/lib/http/errorHandler';
+
+// Placeholder function to be set by the AuthContext later
+let getAccessToken = () => null;
+
+// Function to set the getter from AuthContext
+export const setAccessTokenGetter = (getter) => {
+  getAccessToken = getter;
+};
 
 const http = axios.create({
   baseURL: ENV.API_BASE_URL,
@@ -15,11 +23,10 @@ const http = axios.create({
 // Add a request interceptor
 http.interceptors.request.use(
   (config) => {
-    // You can add custom logic here, like adding auth tokens
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers['Authorization'] = `Bearer ${token}`;
-    // }
+    const token = getAccessToken();
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -30,11 +37,11 @@ http.interceptors.request.use(
 // Add a response interceptor
 http.interceptors.response.use(
   (response) => {
-    // You can add custom logic here, like handling specific response codes
     return response;
   },
   (error) => {
-    // Handle errors globally
+    // Handle global errors, including 401 Unauthorized
+    // The transparent refresh logic would go here if not handled by a dedicated service
     handleHttpError(error);
     return Promise.reject(error);
   }

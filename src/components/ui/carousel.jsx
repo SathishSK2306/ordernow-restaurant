@@ -1,5 +1,6 @@
 import * as React from "react"
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from 'embla-carousel-autoplay'
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -17,7 +18,7 @@ function useCarousel() {
   return context
 }
 
-function Carousel({
+const Carousel = React.forwardRef(({
   orientation = "horizontal",
   opts,
   setApi,
@@ -25,19 +26,27 @@ function Carousel({
   className,
   children,
   ...props
-}) {
+}, ref) => {
   const [carouselRef, api] = useEmblaCarousel({
     ...opts,
     axis: orientation === "horizontal" ? "x" : "y",
   }, plugins)
+
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const [scrollSnaps, setScrollSnaps] = React.useState([]);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const onSelect = React.useCallback((api) => {
     if (!api) return
     setCanScrollPrev(api.canScrollPrev())
     setCanScrollNext(api.canScrollNext())
+    setSelectedIndex(api.selectedScrollSnap());
   }, [])
+
+  const onInit = React.useCallback((api) => {
+    setScrollSnaps(api.scrollSnapList());
+  }, []);
 
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev()
@@ -46,6 +55,10 @@ function Carousel({
   const scrollNext = React.useCallback(() => {
     api?.scrollNext()
   }, [api])
+
+  const scrollTo = React.useCallback((index) => {
+    api?.scrollTo(index);
+  }, [api]);
 
   const handleKeyDown = React.useCallback((event) => {
     if (event.key === "ArrowLeft") {
@@ -64,14 +77,18 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return
+    onInit(api)
     onSelect(api)
+    api.on("reInit", onInit)
     api.on("reInit", onSelect)
     api.on("select", onSelect)
 
     return () => {
       api?.off("select", onSelect)
+      api?.off("reInit", onInit)
+      api?.off("reInit", onSelect)
     };
-  }, [api, onSelect])
+  }, [api, onSelect, onInit])
 
   return (
     <CarouselContext.Provider
@@ -87,6 +104,7 @@ function Carousel({
         canScrollNext,
       }}>
       <div
+        ref={ref}
         onKeyDownCapture={handleKeyDown}
         className={cn("relative", className)}
         role="region"
@@ -94,10 +112,28 @@ function Carousel({
         data-slot="carousel"
         {...props}>
         {children}
+        
+        {/* Pagination Dashes */}
+        {scrollSnaps.length > 1 && (
+          <div className="absolute bottom-4 left-4 flex flex-row justify-center z-20">
+            {scrollSnaps.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollTo(index)}
+                className={cn(
+                  "mx-1 transition-colors h-1 w-5 rounded-sm",
+                  selectedIndex === index ? "bg-white" : "bg-white/40"
+                )}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </CarouselContext.Provider>
   );
-}
+});
+Carousel.displayName = "Carousel"
 
 function CarouselContent({
   className,
@@ -120,6 +156,7 @@ function CarouselContent({
     </div>
   );
 }
+CarouselContent.displayName = "CarouselContent"
 
 function CarouselItem({
   className,
@@ -140,6 +177,7 @@ function CarouselItem({
       {...props} />
   );
 }
+CarouselItem.displayName = "CarouselItem"
 
 function CarouselPrevious({
   className,
@@ -165,6 +203,7 @@ function CarouselPrevious({
     </Button>
   );
 }
+CarouselPrevious.displayName = "CarouselPrevious"
 
 function CarouselNext({
   className,
@@ -190,5 +229,12 @@ function CarouselNext({
     </Button>
   );
 }
+CarouselNext.displayName = "CarouselNext"
 
-export { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext };
+export {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+};
