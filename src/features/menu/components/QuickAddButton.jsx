@@ -2,8 +2,9 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { useCartMutations } from '@/features/cart/hooks/useCartMutations';
 import { toast } from 'sonner' // Assuming you have a toast component for notifications
+import { cn } from '@/lib/utils';
 
-const QuickAddButton = ({ item, restaurantId }) => {
+const QuickAddButton = ({ item, restaurantId, className }) => {
     const { add } = useCartMutations(restaurantId, { syncItems: true });
 
     const handleQuickAdd = (event) => {
@@ -20,7 +21,7 @@ const QuickAddButton = ({ item, restaurantId }) => {
     return (
         <Button
         size="icon"
-        className="absolute bottom-2 right-2 rounded-full bg-white text-black shadow-lg hover:bg-gray-100 "
+        className={cn("absolute bottom-2 right-2 rounded-full bg-white text-black shadow-lg hover:bg-gray-100", className)}
         variant="ghost"
         onClick={handleQuickAdd}
         aria-label="Quick Add"

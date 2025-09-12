@@ -29,9 +29,9 @@ const MenuItemCard = ({
   return (
     <div 
       className={cn(
-        "relative flex rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden",
+        "relative flex rounded-md shadow-sm hover:shadow-md transition overflow-hidden",
         "bg-white text-black",
-        isImageRight ? "h-35 flex-row border border-gray-200" : "flex-col",
+        isImageRight ? "h-35 flex-row border border-gray-200 rounded-2xl" : "flex-col",
         isImageCenter && "h-full",
         className
       )}
@@ -42,7 +42,7 @@ const MenuItemCard = ({
         <div className={cn(
           "relative shrink-0",
           isImageRight ? "w-32 h-full order-2" : "w-full",
-          isImageTop ? "h-32" : "",
+          isImageTop ? "h-34" : "",
           isImageCenter ? "h-full" : ""
         )}>
           <img
@@ -57,15 +57,15 @@ const MenuItemCard = ({
             </Badge>
           }
           {/* Quick Add Button over image*/}
-          <QuickAddButton item={item} restaurantId={restaurantId} />
+          <QuickAddButton item={item} restaurantId={restaurantId} className={isImageRight ? "bottom-2 right-2" : "top-2 right-2"} />
         </div>
       )}
 
       {/* Text Content */}
       <div className={cn(
-        "flex-1 p-4 flex",
-        isImageRight ? "flex-col justify-between" : "flex-col justify-between",
-        isImageCenter && "absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/80 to-transparent text-white z-10"
+        "flex-1 flex px-3 py-1.5",
+        isImageRight ? "flex-col justify-between p-4 " : "flex-col justify-between",
+        isImageCenter && "absolute right-0 bottom-0 w-1/2  bg-white rounded-tl-2xl text-black z-10"
       )}>
         <div>
           <h4 className={cn("font-semibold", isImageRight ? "text-lg text-gray-900" : "text-base")}>
