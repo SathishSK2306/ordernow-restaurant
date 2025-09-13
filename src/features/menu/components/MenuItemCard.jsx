@@ -42,7 +42,7 @@ const MenuItemCard = ({
         <div className={cn(
           "relative shrink-0",
           isImageRight ? "w-32 h-full order-2" : "w-full",
-          isImageTop ? "h-34" : "",
+          isImageTop ? item.price ? "h-31" : "h-34" : "",
           isImageCenter ? "h-full" : ""
         )}>
           <img
@@ -63,8 +63,8 @@ const MenuItemCard = ({
 
       {/* Text Content */}
       <div className={cn(
-        "flex-1 flex px-3 py-1.5",
-        isImageRight ? "flex-col justify-between p-4 " : "flex-col justify-between",
+        "flex-1 flex px-3 py-1",
+        isImageRight ? "flex-col justify-between p-4 " : "flex-col",
         isImageCenter && "absolute right-0 bottom-0 w-1/2  bg-white rounded-tl-2xl text-black z-10"
       )}>
         <div>
@@ -76,7 +76,14 @@ const MenuItemCard = ({
           )}
         </div>
         {!(isImageCenter || isImageTop) && (
-          <p className="text-sm font-medium text-green-700 mt-2">₹{item.price.toFixed(2)}</p>
+          <p className="text-sm font-medium text-green-700 mt-2">
+            ₹{typeof item.price === 'number' ? item.price.toFixed(2) : '--'}
+          </p>
+        )}
+        {(isImageTop || isImageCenter )&&(
+          <div className="flex items-center">
+            <div className="text-xs font-medium text-green-700">₹{typeof item.price === 'number' ? item.price.toFixed(2) : '--'}</div>
+          </div>
         )}
       </div>
     </div>

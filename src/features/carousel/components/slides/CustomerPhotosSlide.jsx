@@ -57,9 +57,9 @@ export function CustomerPhotosSlide({ photos, className, ...props }) {
       </div>
       
       {/* "See photo gallery" Button */}
-      <div className="absolute inset-x-0 bottom-4 flex justify-center">
+      <div className="absolute right-6 bottom-13 flex justify-center">
         <button
-            className="shrink-0 px-3 py-1 rounded-full text-sm font-bold transition whitespace-nowrap bg-gray-100 text-gray-800" 
+            className="shrink-0 px-2.5 py-1.5 rounded-full text-xs font-bold transition whitespace-nowrap bg-gray-100 text-gray-800" 
           >
             See photo gallery
           </button>

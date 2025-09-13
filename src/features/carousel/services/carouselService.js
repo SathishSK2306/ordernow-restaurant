@@ -18,19 +18,22 @@ export async function fetchCarouselData(restaurantId) {
                 "id": "616a8760-cbdc-4d94-8c83-0cfc17f14d65",
                 "name": "Mysore Masala Dosa",
                 "image_url": "29d4b71d-f585-4a17-88dc-9e227b56d4f1/menu-items/616a8760-cbdc-4d94-8c83-0cfc17f14d65.jpg",
-                "orders": "1k+"
+                "orders": "1k+",
+                "price": 70
                 },
                 {
                 "id": "549909ab-9eb5-4aaa-8eb4-9469a6dc4368",
                 "name": "Bisi Bele Bath",
                 "image_url": "29d4b71d-f585-4a17-88dc-9e227b56d4f1/menu-items/549909ab-9eb5-4aaa-8eb4-9469a6dc4368.jpg",
-                "orders": "1k+"
+                "orders": "1k+",
+                "price": 100
                 },
                 {
                 "id": "46fc0fdf-97d2-467a-a9ea-e833318265e1",
                 "name": "Rava Idli",
                 "image_url": "29d4b71d-f585-4a17-88dc-9e227b56d4f1/menu-items/46fc0fdf-97d2-467a-a9ea-e833318265e1.jpg",
-                "orders": "1k+"
+                "orders": "1k+",
+                "price": 50
                 }
             ],
             "customer_photos": [

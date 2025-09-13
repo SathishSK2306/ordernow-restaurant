@@ -69,11 +69,13 @@ export function HomeCarousel({ onCollapse }) {
       </Carousel>
       {/* Collapse Button */}
       <Button 
-          className="absolute bottom-4 right-4 z-20 rounded-full bg-white/50 backdrop-blur-sm text-black hover:bg-white size-7"
-          size="icon"
+          className="absolute bottom-2 right-6 h-5 rounded-full text-white "
           onClick={onCollapse}
+          style={{ padding: '1px 4px 1px 8px' }}
+          variant="link"
       >
-          <ChevronUp className="w-3 h-3" />
+        <span>Collapse</span>
+        <ChevronUp className="w-4 h-4" />
       </Button>
     </div>
   );
