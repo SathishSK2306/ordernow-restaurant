@@ -22,7 +22,7 @@ export function HomeCarousel({ onCollapse }) {
   }
 
   const hasCarouselContent = 
-    carouselData?.welcome_data ||
+    carouselData?.welcome_slide ||
     (carouselData?.customer_photos && carouselData.customer_photos.length > 0) ||
     (carouselData?.restaurant_specials && carouselData.restaurant_specials.length > 0);
 
@@ -42,13 +42,13 @@ export function HomeCarousel({ onCollapse }) {
           ]}>
         <CarouselContent>
           {/* Welcome slide is always rendered if there's data */}
-          {carouselData?.welcome_data && (
+          {carouselData?.welcome_slide && (
             <CarouselItem>
               <WelcomeSlide
-                restaurantName={carouselData.welcome_data.name}
-                welcomeImageUrl={carouselData.welcome_data.image_url}
-                logoUrl={carouselData.welcome_data.logo_url}
-                featuredItemTitle={carouselData.welcome_data.featured_item_title}
+                restaurantName={carouselData.welcome_slide.name}
+                welcomeImageUrl={carouselData.welcome_slide.image_url}
+                logoUrl={carouselData.welcome_slide.logo_url}
+                featuredItemTitle={carouselData.welcome_slide.featured_item_title}
               />
             </CarouselItem>
           )}
