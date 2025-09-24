@@ -8,8 +8,6 @@ export function CustomerPhotosSlide({ photos, className, ...props }) {
   // Use all available photos for the grid
   const photosToDisplay = photos.slice(0, 3);
 
-  console.log('CustomerPhotosSlide photos:', photosToDisplay);
-
   return (
     <div className={cn("relative h-full p-4 md:p-8", className)} {...props}>
       <h2 className="text-xl md:text-2xl font-bold mb-4 text-white">Customer photos</h2>
@@ -27,7 +25,6 @@ export function CustomerPhotosSlide({ photos, className, ...props }) {
             className="relative w-full h-full bg-cover bg-center rounded-lg overflow-hidden [grid-area:top-left]"
             style={{ backgroundImage: `url('${imageBaseUrl}/${photosToDisplay[0].image_url}')` }}
           >
-            {console.log('Displaying photo:', `url('${imageBaseUrl}/${photosToDisplay[0].image_url}')`)}
             <span className="absolute bottom-2 left-2 text-xs text-white drop-shadow-sm">
               From {photosToDisplay[0].username}
             </span>

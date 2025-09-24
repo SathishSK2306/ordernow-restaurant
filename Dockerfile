@@ -20,5 +20,5 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
 # To run this locally on docker -
-# docker build -t ordernow-frontend .
-# docker run -p 3000:80 ordernow-frontend
+# docker build . -t ordernow-cust-frontend .
+# docker run -p 3000:80 ordernow-cust-frontend
