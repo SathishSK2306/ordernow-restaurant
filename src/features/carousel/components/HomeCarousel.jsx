@@ -31,7 +31,7 @@ export function HomeCarousel({ onCollapse }) {
   }
 
   return (
-     <div className="relative mb-6 -mx-4 -my-2">
+     <div className="relative mb-4 -mx-4 -my-2">
       <Carousel
           // Autoplay configuration: delay of 5 seconds, stop on user interaction
           plugins={[

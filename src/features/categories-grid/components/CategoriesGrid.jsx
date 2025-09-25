@@ -16,7 +16,7 @@ const CategoriesGrid = ({ categories }) => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 px-4">Featured Categories</h2>
+      <h2 className="text-2xl font-bold px-2">Featured Categories</h2>
       <div className="grid grid-cols-3 gap-1 pb-3">
         {categories.map((category) => (
           <CategoryCard
