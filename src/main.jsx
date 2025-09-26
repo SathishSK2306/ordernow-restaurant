@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 //import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { HeaderProvider } from "@/providers/header-context";
+import { AuthProvider } from "@/features/auth/context/AuthContext"; 
 import App from "./App";
 import "./index.css";
 
@@ -26,11 +27,11 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
   <QueryClientProvider client={queryClient}>
     <HeaderProvider>
-      
+      <AuthProvider>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <App />
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      
+      </AuthProvider>
     </HeaderProvider>
   </QueryClientProvider>
   </StrictMode>

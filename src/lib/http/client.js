@@ -3,45 +3,27 @@ import axios from 'axios';
 import { ENV } from '@/config/env';
 import { handleHttpError } from '@/lib/http/errorHandler';
 
-// Placeholder function to be set by the AuthContext later
-let getAccessToken = () => null;
-
-// Function to set the getter from AuthContext
-export const setAccessTokenGetter = (getter) => {
-  getAccessToken = getter;
-};
+// ⛔️ REMOVE THIS
+// let getAccessToken = () => null; 
+// ⛔️ REMOVE THIS
+// export const setAccessTokenGetter = (getter) => { ... };
 
 const http = axios.create({
   baseURL: ENV.API_BASE_URL,
-  withCredentials: true, // Include credentials like cookies in requests
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-    'ngrok-skip-browser-warning': 'true', // For ngrok
+    'ngrok-skip-browser-warning': 'true',
   },
 });
 
-// Add a request interceptor
-http.interceptors.request.use(
-  (config) => {
-    const token = getAccessToken();
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+// ⛔️ REMOVE THE REQUEST INTERCEPTOR or simplify it if needed for other headers
+// http.interceptors.request.use( ... );
 
-// Add a response interceptor
+// Your response interceptor is still useful for global error handling
 http.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
-    // Handle global errors, including 401 Unauthorized
-    // The transparent refresh logic would go here if not handled by a dedicated service
     handleHttpError(error);
     return Promise.reject(error);
   }
