@@ -36,7 +36,7 @@ export function HomeCarousel({ onCollapse }) {
           // Autoplay configuration: delay of 5 seconds, stop on user interaction
           plugins={[
               Autoplay({ 
-                  delay: 5000, 
+                  delay: 7000, 
                   stopOnInteraction: true 
               })
           ]}>

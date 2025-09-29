@@ -2,9 +2,11 @@
 import { menuRoutes } from '@features/menu/routes';
 import { cartRoutes } from '@/features/cart/routes';
 import { authRoutes } from '@/features/auth/routes';
+import { userAccountRoutes } from '@/features/user-account/routes';
 
 export const allRoutes = [
   ...authRoutes,
   ...menuRoutes,
   ...cartRoutes,
+  ...userAccountRoutes,
 ];

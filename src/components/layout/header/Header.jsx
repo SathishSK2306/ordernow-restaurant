@@ -1,3 +1,4 @@
+// src/components/layout/header/Header.jsx
 import { useHeader } from "@providers/header-context";
 import HeaderLeft from "./HeaderLeft";
 import HeaderRight from "./HeaderRight";

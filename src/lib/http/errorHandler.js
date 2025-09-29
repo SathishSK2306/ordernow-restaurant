@@ -13,7 +13,7 @@ export function handleHttpError(error) {
             case 401:
                 console.error('Unauthorized:', data);
                 // TODO: Optionally, you can trigger a logout or redirect to login here
-                //toastMessage = 'You are not authorized. Please log in again.';
+                toastMessage = 'You are not authorized. Please log in again.';
                 break;
             case 403:
                 console.error('Forbidden:', data);

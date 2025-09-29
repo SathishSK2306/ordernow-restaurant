@@ -1,6 +1,6 @@
 // src/features/menu/pages/RestaurantPage.jsx
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMenu } from "../hooks/useMenu";
 import { useMenuHeader } from "../hooks/useMenuHeader";
 import MenuSection from "../components/MenuSection";
@@ -15,6 +15,13 @@ import CategoriesGrid from "@/features/categories-grid/components/CategoriesGrid
 
 const RestaurantPage = () => {
   const { restaurantId } = useParams();
+  // Save the last visited restaurantId to localStorage
+  useEffect(() => {
+    if (restaurantId) {
+      localStorage.setItem('lastVisitedRestaurantId', restaurantId);
+    }
+  }, [restaurantId]);
+  
   const {
     data: menuData,
     isLoading: isLoadingMenu,
@@ -22,6 +29,7 @@ const RestaurantPage = () => {
   } = useMenu(restaurantId);
   const { data: carouselData } = useCarouselData(restaurantId);
 
+  // Set up the dynamic header for the menu page
   useMenuHeader();
 
   const [selectedItem, setSelectedItem] = useState(null);
