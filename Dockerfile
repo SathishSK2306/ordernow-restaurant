@@ -5,7 +5,8 @@ WORKDIR /app
 COPY . .
 
 # Rename .env.development to .env so Vite loads it
-RUN cp .env.development .env
+#RUN cp .env.development .env
+RUN cp .env.staging .env
 
 # Install dependencies and build the application
 RUN npm install
