@@ -25,6 +25,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+        # New Step: Create .env.staging file from secret
+      - name: Create .env.staging file
+        run: echo "${{ secrets.ENV_STAGING }}" > .env.staging
+        shell: bash
+
       # Step 2: Log in to the GitHub Container Registry
       - name: Log in to the Container registry
         uses: docker/login-action@v3
