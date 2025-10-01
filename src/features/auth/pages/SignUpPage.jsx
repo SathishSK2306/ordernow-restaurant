@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 
-export default function SignupPage() {
+export default function SignUpPage() {
   const [contact, setContact] = useState('');
   const channel = 'email'; // Assuming email for now
   const { mutate: sendOtp, isPending } = useRequestOtp();
