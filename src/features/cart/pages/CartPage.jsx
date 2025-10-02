@@ -15,7 +15,7 @@ const CartPage = () => {
   const { data: cartViewData, isLoading, error } = useCart(restaurantId);
   const cartItems = cartViewData?.cart_items || [];
 
-  const handleMoreItems = () => navigate(`/restaurant/${restaurantId}/menu`);
+  const handleMoreItems = () => navigate(`/restaurant/${restaurantId}`);
 
   if (isLoading) return <div className="text-center p-6">Loading cart...</div>;
   if (error) return <div className="text-center p-6 text-red-600">Failed to load cart</div>;
@@ -37,7 +37,7 @@ const CartPage = () => {
         </div>
       </div>
       <CartSummary subtotal={cartViewData.totals.subtotal} />
-      <CartActionButton />
+      <CartActionButton restaurantId={restaurantId} />
     </div>
   );
 };

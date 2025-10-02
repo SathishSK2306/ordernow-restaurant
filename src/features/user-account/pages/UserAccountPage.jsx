@@ -41,8 +41,8 @@ export default function UserAccountPage() {
   ];
   
   const moreOptions = [
-    { icon: Settings, text: 'Settings', to: '/settings' },
-    { icon: MessageSquare, text: 'Send feedback', to: '/feedback' },
+    { icon: Settings, text: 'Settings', to: '/user-account/settings' },
+    { icon: MessageSquare, text: 'Send feedback', to: '/send-feedback' },
     { icon: Info, text: 'About', to: '/about' },
     { icon: FileQuestion, text: 'Frequently Asked Questions', to: '/faq' },
   ]

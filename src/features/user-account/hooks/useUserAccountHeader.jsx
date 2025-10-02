@@ -26,7 +26,7 @@ export function useUserAccountHeader(options = {}) {
   useEffect(() => {
     setHeader({
       left: {
-        icon: "close",
+        icon: "back",
         title: title,
         onClick: () => {
           navigate(-1); 
