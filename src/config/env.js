@@ -12,4 +12,5 @@ function getEnvVariable(key, fallback = undefined) {
 export const ENV = {
   API_BASE_URL: getEnvVariable('VITE_API_BASE_URL', 'http://localhost:8000/api/v1'),
   IMAGE_BASE_URL: getEnvVariable('VITE_IMAGE_BASE_URL', 'https://images.example.com'),
+  MAPBOX_ACCESS_TOKEN: getEnvVariable('VITE_MAPBOX_ACCESS_TOKEN', ''),
 };
