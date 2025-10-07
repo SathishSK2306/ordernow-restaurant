@@ -10,7 +10,7 @@ export function InfoRow({ icon, label, value, isLast = false }) {
                 </div>
                 <span className="text-sm text-gray-600">{value}</span>
             </div>
-            {!isLast && <Separator />}
+            {!isLast && <Separator style={{ marginLeft: "35px" }} />}
         </>
     );
 }

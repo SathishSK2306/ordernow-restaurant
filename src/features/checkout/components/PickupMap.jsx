@@ -87,7 +87,7 @@ const PickupMap = ({ restaurantAddress, restaurantLocation, userLocation }) => {
                 </Marker>
                 <Marker longitude={restaurantCoords[0]} latitude={restaurantCoords[1]} anchor="bottom">
                     <div className="relative flex flex-col items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="23px" height="23px" viewBox="-3.84 -3.84 31.68 31.68" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-store-icon lucide-store">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="23px" height="23px" viewBox="-3.84 -3.84 31.68 31.68" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-store-icon lucide-store">
                         <circle cx="12" cy="12" r="15.84" fill="black"/>
                         <g>
                             <path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/>

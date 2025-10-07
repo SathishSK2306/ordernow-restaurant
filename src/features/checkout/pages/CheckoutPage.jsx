@@ -7,17 +7,16 @@ import { Separator } from "@/components/ui/separator";
 import { Store, Footprints, Clock } from 'lucide-react';
 import { InfoRow } from "../components/InfoRow";
 import PickupMap from "../components/PickupMap";
+import PlaceOrderActionButton from "../components/PlaceOrderActionButton";
 
 export default function CheckoutPage() {
     useCheckoutHeader({ title: 'Checkout' });
 
-    // Corrected the key to match what we discussed
     const restaurantId = localStorage.getItem('lastVisitedRestaurantId');
 
     const { data: restaurantData, isLoading: isRestaurantLoading, isError: isRestaurantError } = useRestaurantData(restaurantId);
     const { location: userLocation, error: userLocationError, isLoading: isUserLocationLoading } = useUserLocation();
     
-    // Fetch directions data here to get distance and time
     const { data: pickupData, isLoading: isDirectionsLoading, isError: isDirectionsError } = usePickupDirections(restaurantData?.address);
 
     const isLoading = isRestaurantLoading || isUserLocationLoading || isDirectionsLoading;
@@ -30,7 +29,7 @@ export default function CheckoutPage() {
                 <Skeleton className="h-8 w-3/4" />
                 <Skeleton className="h-5 w-1/2" />
                 <Skeleton className="h-5 w-1/3" />
-                <Separator />
+                <div className="h-2 bg-gray-100 -mx-4" />
                 <Skeleton className="h-24 w-full" />
             </div>
         );
@@ -83,24 +82,36 @@ export default function CheckoutPage() {
                 />
             </div>
             
-            
-                 <div className="space-y-2 pl-8">
-                    <div className="border-2 border-[#ff6800] rounded-lg p-3 flex justify-between items-center">
-                        <span className="font-semibold">Standard</span>
-                        <span className="text-sm">{pickupData?.duration || '...'}</span>
-                    </div>
-                    <div className="border rounded-lg p-3">
-                        <span className="text-gray-500">Schedule</span>
-                    </div>
-                 </div>
+            <div className="space-y-2 pl-8 mt-4">
+                <div className="border-2 border-[#ff6800] rounded-lg p-3 flex justify-between items-center">
+                    <span className="font-semibold">Standard</span>
+                    <span className="text-sm">{pickupData?.duration || '...'}</span>
+                </div>
+                <div className="border rounded-lg p-3">
+                    <span className="text-gray-500">Schedule</span>
+                </div>
+            </div>
 
-            <Separator className="my-4" />
+            {/* This is the new section separator */}
+            {/* <div className="h-[0.25rem] bg-[#F3F3F3] -mx-7 mt-6 mb-4" /> */}
+            <Separator type="section" />
 
             {/* Placeholder for Order Summary etc. */}
-            <div className="mt-4">
+            <div>
                 <h2 className="text-lg font-bold">Order Summary</h2>
                 {/* ... rest of your code for order summary ... */}
             </div>
+
+            <Separator type="section" />
+            <div>
+                <h2 className="text-lg font-bold">Payment Methods</h2>
+                {/* ... rest of your code for order summary ... */}
+            </div>
+
+            <Separator type="section" />
+
+            <PlaceOrderActionButton restaurantId={restaurantId} />
         </div>
     );
 }
+
