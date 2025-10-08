@@ -1,3 +1,4 @@
+// src/features/auth/routes.jsx
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import VerifyOtpPage from './pages/VerifyOtpPage';

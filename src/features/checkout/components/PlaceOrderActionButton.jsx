@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-const PlaceOrderActionButton = ({ restaurantId }) => {
+const PlaceOrderActionButton = ({ restaurantId, total }) => {
   const navigate = useNavigate();
 
   const handlePlaceOrder = () => {
@@ -12,7 +12,7 @@ const PlaceOrderActionButton = ({ restaurantId }) => {
 
   return (
     <Button className="w-full text-base font-medium" onClick={handlePlaceOrder}>
-      Place Order
+      Continue to Pay ₹ {total}
     </Button>
   );
 };
