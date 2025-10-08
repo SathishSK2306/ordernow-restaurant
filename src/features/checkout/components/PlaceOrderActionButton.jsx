@@ -12,7 +12,7 @@ const PlaceOrderActionButton = ({ restaurantId, total }) => {
 
   return (
     <Button className="w-full text-base font-medium" onClick={handlePlaceOrder}>
-      Continue to Pay ₹ {total}
+      Place your order: ₹ {total}
     </Button>
   );
 };

@@ -120,15 +120,16 @@ export default function CheckoutPage() {
             </div>
 
             {/* --- PICKUP BY SECTION --- */}
-            <div>
+            <div className="mb-2">
                 <h3 className="font-bold text-lg mb-2">Pickup by</h3>
-                <div className="border rounded-lg p-4 flex justify-between items-center">
+                <div className="border rounded-lg px-4 py-2 flex justify-between items-center">
                     <div>
                         <p className="font-semibold">{user.name || 'Valued Customer'}</p>
-                        <p className="text-sm text-gray-500">{user.contact || 'No contact info'}</p>
+                        <p className="text-sm text-gray-500">{user.phone || 'No phone info'}</p>
+                        <p className="text-sm text-gray-500">{user.email || 'No email info'}</p>
                     </div>
                     <Button variant="ghost" size="icon">
-                        <Pencil size={16} />
+                        <Pencil size={16} /> 
                     </Button>
                 </div>
             </div>
@@ -200,6 +201,7 @@ export default function CheckoutPage() {
             {/* --- YOUR PAYMENT SECTION --- */}
             <div>
                 <h3 className="font-bold text-lg mb-2">Your Payment</h3>
+                <div className="text-sm text-gray-600 pb-1">Payment Method</div>
                 <div className="border rounded-lg p-4 text-center text-gray-500">
                     Payment options will be shown here.
                 </div>
