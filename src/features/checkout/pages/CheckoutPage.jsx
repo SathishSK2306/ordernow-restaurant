@@ -8,8 +8,7 @@ import { usePickupDirections } from "../hooks/usePickupDirections";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input"; // Changed from Textarea
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Store, Footprints, Clock, Pencil } from 'lucide-react';
 import { InfoRow } from "../components/InfoRow";
 import PickupMap from "../components/PickupMap";
