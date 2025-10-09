@@ -46,7 +46,7 @@ export default function CheckoutPage() {
     if (!restaurantData || !userLocation || !cartViewData || !user) {
         console.log("Missing data among restaurantData, userLocation, cartViewData, user :", { restaurantData, userLocation, cartViewData, user });
 
-        // Uncomment below in production
+        //********** IMPORTANT */ Uncomment below in production
         //return <div className="p-4 text-center">Could not load all necessary checkout information. Please try again.</div>;
     }
 
@@ -93,7 +93,7 @@ export default function CheckoutPage() {
                 <h3 className="font-bold text-lg mb-2">Pickup from</h3>
                 <PickupMap
                     restaurantLocation={restaurantLocation}
-                    userLocation={userLocation || { lat: 37.4323, lng: -121.8996 }} // TO DO: Remove default coords if userLocation is guaranteed
+                    userLocation={userLocation || { lat: 37.4323, lng: -121.8996 }} // TO DO: **IMP** Remove default coords if userLocation is guaranteed
                     restaurantName={restaurantData.name}
                     restaurantAddress={restaurantData.address}
                 />
