@@ -3,8 +3,16 @@ import { toast } from 'sonner';
 
 export function handleHttpError(error) {
     if (error.response) {
-        const { status, data } = error.response;
-        let toastMessage = data?.message || 'An error occurred. Please try again later.';
+        const { status, data, config } = error.response;
+
+        if(status === 401 && config.url.endsWith('/auth/me')) {
+            // Silently handle 401 errors from /auth/me to avoid unnecessary toasts
+            console.log('Silent 401 from /auth/me - user is not authenticated.');
+            return;
+        }
+
+        let toastMessage = data.detail || data?.message || 'An error occurred. Please try again later.';
+        console.log('HTTP Error:', error.response);
 
         switch (status) {
             case 400:
@@ -13,7 +21,7 @@ export function handleHttpError(error) {
             case 401:
                 console.error('Unauthorized:', data);
                 // TODO: Optionally, you can trigger a logout or redirect to login here
-                toastMessage = 'You are not authorized. Please log in again.';
+                toastMessage = 'You are not logged in. Please log in to continue.';
                 break;
             case 403:
                 console.error('Forbidden:', data);

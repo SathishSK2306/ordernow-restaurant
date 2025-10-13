@@ -50,3 +50,30 @@ jobs:
           tags: |
             ghcr.io/order-now-restaurant/ordernow-cust-frontend:latest
             ghcr.io/order-now-restaurant/ordernow-cust-frontend:${{ github.sha }}
+
+            # ---- NEW DEPLOYMENT JOB ----
+  deploy-to-ec2:
+    # This job will only run after the 'build-and-push-frontend-image' job is successful
+    needs: build-and-push-frontend-image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2 instance
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Navigate to the project directory where your docker-compose.yml is
+            cd /path/to/your/project/on/ec2 
+            
+            # Pull the latest images from GHCR
+            docker compose pull
+            
+            # Stop and restart the services with the new images
+            # The -d flag runs the containers in detached mode
+            docker compose up -d
+            
+            # Optional: Clean up old, unused Docker images to save space
+            docker image prune -f

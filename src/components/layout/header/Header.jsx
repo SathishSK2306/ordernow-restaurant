@@ -11,11 +11,11 @@ export default function Header() {
     <header
       className={cn(
         "flex items-center justify-between px-4 py-2 border-b sticky top-0 z-50 h-16 bg-background text-foreground", // theme-aware
-        header.className // override if needed
+        header?.className // override if needed
       )}
     >
-      <HeaderLeft {...header.left} />
-      <HeaderRight icons={header.right} />
+      <HeaderLeft {...header?.left} />
+      <HeaderRight icons={header?.right} />
     </header>
   );
 }
