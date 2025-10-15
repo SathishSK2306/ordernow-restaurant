@@ -1,12 +1,14 @@
 // src/features/auth/hooks/useAuthMutations.js
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { requestOtp, verifyOtp, logout as logoutService } from '../services/authService';
 import { useAuth } from '../context/AuthContext';
 
 export function useRequestOtp() {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log("Current location state at request otp:", location.state);
 
   return useMutation({
     mutationFn: requestOtp,
@@ -14,7 +16,9 @@ export function useRequestOtp() {
       toast.success(data.message || 'OTP has been sent.');
       // Navigate to the verification page with necessary state
       navigate('/verify-otp', {
+        replace: true,
         state: {
+          ...location.state, // Preserve any existing state
           contact: variables.contact,
           channel: variables.channel,
           purpose: variables.purpose,
@@ -30,18 +34,20 @@ export function useRequestOtp() {
 
 export function useVerifyOtp() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: verifyOtp,
     onSuccess: (data) => {
       toast.success(data.message || 'Verification successful!');
-      // Invalidate the currentUser query to trigger a refetch with the new user data
+
+      // If you are using the checkout session, store the ID
+      if (data.checkout_session_id) {
+        sessionStorage.setItem('checkout_session_id', data.checkout_session_id);
+      }
+      
+      // That's it! Just invalidate the query.
+      // The new component we're about to create will handle the redirect.
       queryClient.invalidateQueries({ queryKey: ['currentUser'] });
-      // Navigate to the main page or intended destination after login
-      //navigate('/', { replace: true });
-      //navigate(-1); // Go back to the previous page
-      navigate('/restaurant/29d4b71d-f585-4a17-88dc-9e227b56d4f1/', { replace: true });
     },
     onError: (error) => {
       toast.error(error.response?.data?.detail || 'OTP verification failed. Please try again.');

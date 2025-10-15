@@ -1,17 +1,15 @@
+// src/features/checkout/pages/CheckoutPage.jsx
 import { useState } from "react";
 import { useRestaurantData } from "@/features/menu/hooks/useRestaurantData";
-import { useUserLocation } from "@/hooks/useUserLocation";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { useCart } from "@/features/cart/hooks/useCart";
 import { useCheckoutHeader } from "../hooks/useCheckoutHeader";
-import { usePickupDirections } from "../hooks/usePickupDirections";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Store, Footprints, Clock, Pencil } from 'lucide-react';
+import { Store, Clock, Pencil, Phone, Mail } from 'lucide-react';
 import { InfoRow } from "../components/InfoRow";
-import PickupMap from "../components/PickupMap";
 import PlaceOrderActionButton from "../components/PlaceOrderActionButton";
 
 export default function CheckoutPage() {
@@ -24,12 +22,11 @@ export default function CheckoutPage() {
     const restaurantId = localStorage.getItem('lastVisitedRestaurantId');
 
     const { data: restaurantData, isLoading: isRestaurantLoading } = useRestaurantData(restaurantId);
-    const { location: userLocation, isLoading: isUserLocationLoading } = useUserLocation();
     const { data: cartViewData, isLoading: isCartLoading } = useCart(restaurantId);
-    const { data: pickupData, isLoading: isDirectionsLoading } = usePickupDirections(restaurantData?.address);
     const { user } = useAuth();
+ 
 
-    const isLoading = isRestaurantLoading || isUserLocationLoading || isCartLoading || isDirectionsLoading;
+    const isLoading = isRestaurantLoading || isCartLoading;
 
     if (isLoading) {
         return (
@@ -43,17 +40,6 @@ export default function CheckoutPage() {
         );
     }
 
-    if (!restaurantData || !userLocation || !cartViewData || !user) {
-        console.log("Missing data among restaurantData, userLocation, cartViewData, user :", { restaurantData, userLocation, cartViewData, user });
-
-        //********** IMPORTANT */ Uncomment below in production
-        //return <div className="p-4 text-center">Could not load all necessary checkout information. Please try again.</div>;
-    }
-
-    const restaurantLocation = {
-        lat: restaurantData.latitude,
-        lng: restaurantData.longitude,
-    };
     
     const subtotal = cartViewData.totals.subtotal || 0;
     const tax = subtotal * 0.05;
@@ -91,12 +77,7 @@ export default function CheckoutPage() {
             {/* --- PICKUP DETAILS SECTION --- */}
             <div className="mb-2">
                 <h3 className="font-bold text-lg mb-2">Pickup from</h3>
-                <PickupMap
-                    restaurantLocation={restaurantLocation}
-                    userLocation={userLocation || { lat: 37.4323, lng: -121.8996 }} // TO DO: **IMP** Remove default coords if userLocation is guaranteed
-                    restaurantName={restaurantData.name}
-                    restaurantAddress={restaurantData.address}
-                />
+
                 <div className="mt-1 bg-white rounded-lg">
                     <InfoRow 
                         icon={<Store size={20} />}
@@ -108,14 +89,9 @@ export default function CheckoutPage() {
                         }
                     />
                     <InfoRow 
-                        icon={<Footprints size={20} />}
-                        label="Distance"
-                        value={pickupData?.distance || '...'}
-                    />
-                    <InfoRow 
                         icon={<Clock size={20} />}
                         label="Pickup time"
-                        value={pickupData?.duration || '...'}
+                        value={ '...'}
                         isLast={true}
                     />
                 </div>
@@ -127,19 +103,23 @@ export default function CheckoutPage() {
                 <div className="border rounded-lg px-4 py-2 flex justify-between items-center">
                     <div>
                         <p className="font-semibold">{user.name || 'Valued Customer'}</p>
-                        <p className="text-sm text-gray-500">{user.phone || 'No phone info'}</p>
-                        <p className="text-sm text-gray-500">{user.email || 'No email info'}</p>
+                        <div className="text-sm text-gray-500 flex items-center">
+                            <Phone size={14} className="mr-2" />
+                            <span>+91-{user.phone || 'No phone info'}</span>
+                        </div>
+                        <div className="text-sm text-gray-500 flex items-center">
+                            <Mail size={14} className="mr-2" />
+                            <span>{user.email || 'No email info'}</span>
+                        </div>
                     </div>
                     <Button variant="ghost" size="icon">
-                        <Pencil size={16} /> 
+                        <Pencil size={16} />
                     </Button>
                 </div>
             </div>
-
-            {/* --- PICKUP INSTRUCTIONS --- */}
             <div>
                  <h3 className="font-bold text-lg mb-2">Pickup Instructions</h3>
-                 <Input placeholder="e.g. Please double the bag, provide extra cutlery..." />
+                 <Input className="text-sm" placeholder="e.g. Please double the bag, provide extra cutlery..." />
             </div>
 
             <Separator type="section" />

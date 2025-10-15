@@ -27,13 +27,7 @@ export function useMenuHeader() {
       right: [
         {
           icon: "account",
-          onClick: () => {
-            if (isAuthenticated) {
-              navigate("/user-account");
-            } else {
-              navigate("/login");
-            }
-          }
+          onClick: () => {navigate("/user-account")}
         },
         {
           icon: "bell",

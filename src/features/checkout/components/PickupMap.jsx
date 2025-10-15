@@ -105,3 +105,13 @@ const PickupMap = ({ restaurantAddress, restaurantLocation, userLocation }) => {
 };
 
 export default PickupMap;
+
+// Usage
+/* 
+    <PickupMap
+        restaurantLocation={restaurantLocation}
+        userLocation={userLocation || { lat: 37.4323, lng: -121.8996 }} // TO DO: **IMP** Remove default coords if userLocation is guaranteed
+        restaurantName={restaurantData.name}
+        restaurantAddress={restaurantData.address}
+    />
+*/

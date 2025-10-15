@@ -1,3 +1,4 @@
+// src/router/ProtectedRoute.jsx
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { Skeleton } from '@/components/ui/skeleton'; // Or your preferred loading spinner

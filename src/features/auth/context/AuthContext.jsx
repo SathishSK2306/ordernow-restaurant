@@ -1,3 +1,4 @@
+// app/src/features/auth/context/AuthContext.jsx
 import { createContext, useContext, useCallback } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getCurrentUser } from '../services/authService';
