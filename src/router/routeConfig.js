@@ -9,6 +9,7 @@ import { orderConfirmationRoutes } from '@/features/order-confirmation/routes';
 import { homeRoutes } from '@/features/home/routes';
 import CustomerGalleryPage from "@/features/menu/pages/CustomerGalleryPage.jsx";
 
+
 export const allRoutes = [
   ...homeRoutes,
   ...authRoutes,
